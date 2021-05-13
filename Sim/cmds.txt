@@ -1,0 +1,19 @@
+
+    wrReg 0 13 ff
+    wrReg 1 13 ff
+    wrReg 2 13 ff
+
+    loop 1
+
+    wrReg 0 13 fe
+    wrReg 2 13 fe
+
+    loop 10
+
+    wrReg 0 13 fe
+    wrReg 1 13 fe
+    wrReg 2 13 ff
+
+    loop 10
+
+    a 2
