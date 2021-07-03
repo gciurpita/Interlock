@@ -1,6 +1,6 @@
 // New Haven West const interlock
 
-const char version [] = "New Haven West 191119c";
+const char version [] = "New Haven West 210703a";
 
 #include <TimerOne.h>
 #include "Wire.h"  // I2R operations
@@ -137,6 +137,7 @@ void i2cCfg (void)
 }
 
 // ---------------------------------------------------------
+// sequentially set each port bit
 void
 test (
     int     chip)
@@ -548,15 +549,18 @@ pcRead (void)
            break;
 
         case '?':
-            Serial.print ("  # c      set chip val\n");
-            Serial.print ("  # p      set port(reg) val\n");
-            Serial.print ("    R      reconfig chips\n");
-            Serial.print ("    r      read chip, port\n");
-            Serial.print ("    s      read all registers of chip\n");
-            Serial.print ("    T      en/disable tglTest\n");
-            Serial.print ("    t      sequentially set bits in GPIO-A/B\n");
-            Serial.print ("  # w      write val to chip, port(reg)\n");
-            Serial.print ("    v      version\n");
+            Serial.print ("  # c  set chip 0-7 val\n");
+            Serial.print ("  # p  set port (0-output/1-input) val\n");
+            Serial.print ("    R  reconfig chips\n");
+            Serial.print ("    r  read chip, port\n");
+            Serial.print ("    s  read all registers of chip\n");
+            Serial.print ("    T  en/disable tglTest\n");
+            Serial.print ("    t  sequentially set each bit in GPIO-A/B\n");
+            Serial.print ("  # w  write 8-bit val to chip/port\n");
+            Serial.print ("    v  version\n");
+            break;
+
+        case '\n':      // ignore
             break;
 
         default:
