@@ -36,7 +36,7 @@ flashes/winks an LED at one of three different sequences,
 on/off periods.
 
 <p>
-<b>ledStrobe (void)</b>
+<b>butScan (void)</b>
 reads GPIO-B, the button input port of each chip,
 checks for a change in state,
 waits WAIT_CNT iterations to debounce
