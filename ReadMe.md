@@ -5,14 +5,30 @@
 Arduino code to route (align turnouts) through interlock
 by pressing buttons on either end of route.
 
-<img width=400 align=right src=west.png>
-
 Controller uses hardware shown at right
 using MCP23017 I2C I/O expander
 to control up to 8 tortoise switch machines
 using LM324 op-amps and as 8 GPIOs.
 
+<img width=100% src=west.png>
+
 <!-- -----------------------------------------------  ---------------------- -->
+
+<p>
+<table border=1 cellspacing=0 width=600 align=right>
+ <tr> <th colspan=7> New Haven West Interlock
+ <tr> <th> Bit <th colspan=2> Chip-0 <th colspan=2> Chip-1 <th colspan=2> Chip-2
+ <tr> <th>  0 <td align=center>  sw1 <td align=center> Ba1 <td align=center>  sw9 <td align=center> Bc1 <td align=center> sw17 <td align=center> Bc9
+ <tr> <th>  1 <td align=center>  sw2 <td align=center> Ba2 <td align=center> sw10 <td align=center> Bc2 <td align=center> sw18 <td align=center> Bx1
+ <tr> <th>  2 <td align=center>  sw3 <td align=center> Ba3 <td align=center> sw11 <td align=center> Bc3 <td align=center> sw19 <td align=center> Bx2
+ <tr> <th>  3 <td align=center>  sw4 <td align=center> Ba4 <td align=center> sw12 <td align=center> Bc4 <td align=center> sw20 <td align=center>    
+ <tr> <th>  4 <td align=center>  sw5 <td align=center> Ba5 <td align=center> sw13 <td align=center> Bc5 <td align=center> sw21 <td align=center>    
+ <tr> <th>  5 <td align=center>  sw6 <td align=center> Ba6 <td align=center> sw14 <td align=center> Bc6 <td align=center>      <td align=center>    
+ <tr> <th>  6 <td align=center>  sw7 <td align=center>     <td align=center> sw15 <td align=center> Bc7 <td align=center>      <td align=center>    
+ <tr> <th>  7 <td align=center>  sw8 <td align=center>     <td align=center> sw16 <td align=center> Bc8 <td align=center>      <td align=center>    
+</table>
+
+
 <h4> Panel Description  </h4>
 
 <i>westIntLck.cpp</i> contains tables describing the panel:
