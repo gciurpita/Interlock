@@ -1,17 +1,106 @@
 ### RR Interlock - Bill Lupoli's New Haven
 
-<img width=400 align=right src=west.png>
+<img width=400 align=right src=https://i.imgur.com/Qs8UcEP.jpg>
 
 Arduino code to route (align turnouts) through interlock
 by pressing buttons on either end of route.
 
-<img width=400 align=right src=https://i.imgur.com/Qs8UcEP.jpg>
+<img width=400 align=right src=west.png>
 
 Controller uses hardware shown at right
 using MCP23017 I2C I/O expander
 to control up to 8 tortoise switch machines
 using LM324 op-amps and as 8 GPIOs.
 
+<!-- -----------------------------------------------  ---------------------- -->
+<h4> Panel Description  </h4>
+
+<i>westIntLck.cpp</i> contains tables describing the panel:
+buttons, turnouts and routes.
+This description requires a minimal understanding of programming
+to make modifications.
+
+<p>
+Descriptions of both buttons and turnouts
+includes identifying the corresponding
+chip and port bit along with a label.
+
+<p>
+Buttons are described in <i>butIos []</i>.
+<i>Ba1</i> is a numeric symbol uniquely identifying each button,
+the <i>B</i> prefix identifies it as a button and
+<i>a1</i> corresponds to the label on the panel.
+The <i>0, 0, "A1"</i> identifies the input on
+chip 0, port bit 0 (the first or least significant bit) and
+a text string label, <i>A1</i>.
+There are at most 8 bits on each chip,
+some spare bits are available.
+
+
+<blockquote><pre>
+const PROGMEM ButIo_t butIos [] = {
+    { Ba1, { 0, 0, "A1" }},
+    ...
+    { Bc6, { 1, 5, "C6" }},
+    ...
+    { Bc9, { 2, 0, "C9" }},
+    { Bx1, { 2, 1, "X1" }},
+    { Bx2, { 2, 2, "X2" }},
+    ...
+    { B_0, { 0, 0, ""   }},
+};
+</blockquote></pre>
+
+There are two entries for each switch machine position.
+<i>s02r</i> is the variable name of the entry used in the <i>routes</i> table.
+<i>2, R, 1</i> includes a numeric value for the switch motor,
+a symbol, <i>R/N</i> identifying the postion as normal/reverse and
+the bit value, 0/1 for that position.
+<i>0, 1, "s02r"</i>, like the button entry
+identifies the chip, port bit and label.
+
+<blockquote><pre>
+// machine address and polarity
+const PROGMEM SwMach_t s02n = {  2, N, 0, { 0, 1, "s02n" }};
+const PROGMEM SwMach_t s02r = {  2, R, 1, { 0, 1, "s02r" }};
+
+const PROGMEM SwMach_t s14n = { 14, N, 0, { 1, 5, "s14n" }};
+const PROGMEM SwMach_t s14r = { 14, R, 1, { 1, 5, "s14r" }};
+
+const PROGMEM SwMach_t s21n = { 21, N, 0, { 2, 4, "s21n" }};
+const PROGMEM SwMach_t s21r = { 21, R, 1, { 2, 4, "s21r" }};
+</blockquote></pre>
+
+Routes are described in the routes table, <i>routes []</i>.
+Each entry includes a pair a buttons that can be presses simultaneously and
+one or more switch machine position references (i.e. pointers).
+
+<blockquote><pre>
+const PROGMEM Route_t routes [] = {
+    { Ba1, Bc1, { &s21r, &s19n, &s15r, &s14n, &s06n }},
+    { Ba1, Bc2, { &s21r, &s19n, &s15n, &s10n, &s06n }},
+    ...
+    { Ba4, Bc4, { &s20n, &s16n, &s17n, &s11n, &s12n, &s07n, &s02r, &s01n }},
+    ...
+}
+</blockquote></pre>
+
+Some routes are ambiguous,
+a pair of buttons can select more than one route.
+<blockquote><pre>
+    { Ba4, Bc3, { &s20n, &s16n, &s17n, &s11n, &s12n, &s07n, &s02r, &s01r }},
+    { Ba4, Bc3, { &s20r, &s16n, &s17n, &s11n, &s12n, &s07n, &s02r, &s01r }},
+</blockquote>
+
+The code repeated monitors the button input ports.
+When it detects that two or more buttons have been pressed,
+it uses <i>butIos []</i> to match the chip and port bit to button symbols.
+It then searches the routes table for an entry with that pair of buttons.
+The code then sets the corresponding bit
+to position the switch for each switch machine in the route.
+
+<!-- -----------------------------------------------  ---------------------- -->
+<hr>
 <h4> Code Description </h4>
 
 <b>setup ()</b> 
