@@ -10,6 +10,8 @@ using MCP23017 I2C I/O expander
 to control up to 8 tortoise switch machines
 using LM324 op-amps and as 8 GPIOs.
 
+<img width=100% src=westLupoli.png>
+
 <img width=100% src=west.png>
 
 <!-- -----------------------------------------------  ---------------------- -->
@@ -67,13 +69,15 @@ const PROGMEM ButIo_t butIos [] = {
 };
 </blockquote></pre>
 
-There are two entries for each switch machine position.
+There is an entry for each switch machine position.
 <i>s02r</i> is the variable name of the entry used in the <i>routes</i> table.
-<i>2, R, 1</i> includes a numeric value for the switch motor,
-a symbol, <i>R/N</i> identifying the postion as normal/reverse and
+The first three fields, <i>2, R, 1</i>,
+include a numeric value for the switch machine,
+a symbol, <i>N/R</i> identifying the postion as normal/reverse and
 the bit value, 0/1 for that position.
+The last three fields,
 <i>0, 1, "s02r"</i>, like the button entry
-identifies the chip, port bit and label.
+specify the chip, port bit and label.
 
 <blockquote><pre>
 // machine address and polarity
@@ -88,7 +92,7 @@ const PROGMEM SwMach_t s21r = { 21, R, 1, { 2, 4, "s21r" }};
 </blockquote></pre>
 
 Routes are described in the routes table, <i>routes []</i>.
-Each entry includes a pair a buttons that can be presses simultaneously and
+Each entry specifies a pair a buttons and
 one or more switch machine position references (i.e. pointers).
 
 <blockquote><pre>
@@ -108,12 +112,13 @@ a pair of buttons can select more than one route.
     { Ba4, Bc3, { &s20r, &s16n, &s17n, &s11n, &s12n, &s07n, &s02r, &s01r }},
 </blockquote>
 
-The code repeated monitors the button input ports.
-When it detects that two or more buttons have been pressed,
-it uses <i>butIos []</i> to match the chip and port bit to button symbols.
-It then searches the routes table for an entry with that pair of buttons.
-The code then sets the corresponding bit
-to position the switch for each switch machine in the route.
+The code repeatedly
+* monitors the button input ports
+* detects that two or more buttons have been pressed
+* uses <i>butIos []</i> to match the chip and port bit to button IDs
+* searches the routes table for an entry with that pair of buttons, and
+* sets the corresponding bits to position the switch
+for each machine in the route.
 
 <!-- -----------------------------------------------  ---------------------- -->
 <hr>
