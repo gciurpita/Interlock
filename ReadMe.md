@@ -2,33 +2,68 @@
 
 <img width=400 align=right src=https://i.imgur.com/Qs8UcEP.jpg>
 
-Arduino code to route (align turnouts) through interlock
-by pressing buttons on either end of route.
+Arduino interlock route controller,
+aligns multiple turnouts through interlock
+by pressing buttons at either end of route.
 
-Controller uses hardware shown at right
+Controller uses hardware shown at right.
+~12V input top left to ~6V down converter to Arduino UNO board bottom left.
+Three custom Tortoise Driver and I/O PCBs
 using MCP23017 I2C I/O expander
-to control up to 8 tortoise switch machines
-using LM324 op-amps and as 8 GPIOs.
+to control up to 8 tortoise switch machines using LM324 op-amps and
+eight GPIOs.
+
+<img width=100% src=westLupoli.png>
 
 <img width=100% src=west.png>
 
 <!-- -----------------------------------------------  ---------------------- -->
+<h4> PCB Wire Connections </h4>
 
-<p>
-<table border=1 cellspacing=0 width=600 align=right>
- <tr> <th colspan=7> New Haven West Interlock
- <tr> <th> Bit <th colspan=2> Chip-0 <th colspan=2> Chip-1 <th colspan=2> Chip-2
- <tr> <th>  0 <td align=center>  sw1 <td align=center> Ba1 <td align=center>  sw9 <td align=center> Bc1 <td align=center> sw17 <td align=center> Bc9
- <tr> <th>  1 <td align=center>  sw2 <td align=center> Ba2 <td align=center> sw10 <td align=center> Bc2 <td align=center> sw18 <td align=center> Bx1
- <tr> <th>  2 <td align=center>  sw3 <td align=center> Ba3 <td align=center> sw11 <td align=center> Bc3 <td align=center> sw19 <td align=center> Bx2
- <tr> <th>  3 <td align=center>  sw4 <td align=center> Ba4 <td align=center> sw12 <td align=center> Bc4 <td align=center> sw20 <td align=center>    
- <tr> <th>  4 <td align=center>  sw5 <td align=center> Ba5 <td align=center> sw13 <td align=center> Bc5 <td align=center> sw21 <td align=center>    
- <tr> <th>  5 <td align=center>  sw6 <td align=center> Ba6 <td align=center> sw14 <td align=center> Bc6 <td align=center>      <td align=center>    
- <tr> <th>  6 <td align=center>  sw7 <td align=center>     <td align=center> sw15 <td align=center> Bc7 <td align=center>      <td align=center>    
- <tr> <th>  7 <td align=center>  sw8 <td align=center>     <td align=center> sw16 <td align=center> Bc8 <td align=center>      <td align=center>    
+<table border=1 cellspacing=0 align=right>
+ <tr> <th colspan=2> PCB 3
+ <tr> <th> Mach <th> Button
+ <tr> <td align=center>  69 <td align=center>  X1
+ <tr> <td align=center>  70 <td align=center>  X2
+ <tr> <td align=center>  71 <td align=center>  X3
+ <tr> <td align=center>  72 <td align=center>
+ <tr> <td align=center> &nbsp; <td align=center>
+ <tr> <td align=center> &nbsp; <td align=center>
+ <tr> <td align=center> &nbsp; <td align=center>
+ <tr> <td align=center> &nbsp; <td align=center>
 </table>
 
+<table border=1 cellspacing=0 align=right>
+ <tr> <th colspan=2> PCB 2
+ <tr> <th> Mach <th> Button
+ <tr> <td align=center>  59 <td align=center>  C1
+ <tr> <td align=center>  61 <td align=center>  C2
+ <tr> <td align=center>  63 <td align=center>  C3
+ <tr> <td align=center>  64 <td align=center>  C4
+ <tr> <td align=center>  65 <td align=center>  C5
+ <tr> <td align=center>  66 <td align=center>  C6
+ <tr> <td align=center>  67 <td align=center>  C7
+ <tr> <td align=center>  68 <td align=center>  C8
+</table>
 
+<table border=1 cellspacing=0 align=right>
+ <tr> <th colspan=2> PCB 1
+ <tr> <th> Mach <th> Button
+ <tr> <td align=center>  51 <td align=center>  A1
+ <tr> <td align=center>  52 <td align=center>  A2
+ <tr> <td align=center>  53 <td align=center>  A3
+ <tr> <td align=center>  54 <td align=center>  A4
+
+ <tr> <td align=center>  55 <td align=center>  B1
+ <tr> <td align=center>  56 <td align=center>  B2
+ <tr> <td align=center>  57 <td align=center>  B3
+ <tr> <td align=center>  58 <td align=center>  B4
+</table>
+
+<a href=https://i.imgur.com/RJTQaR7.jpg target="_blank">
+<img src=https://i.imgur.com/RJTQaR7.jpg height=380></a>
+
+<!-- -----------------------------------------------  ---------------------- -->
 <h4> Panel Description  </h4>
 
 <i>westIntLck.cpp</i> contains tables describing the panel:
@@ -67,13 +102,15 @@ const PROGMEM ButIo_t butIos [] = {
 };
 </blockquote></pre>
 
-There are two entries for each switch machine position.
+There is an entry for each switch machine position.
 <i>s02r</i> is the variable name of the entry used in the <i>routes</i> table.
-<i>2, R, 1</i> includes a numeric value for the switch motor,
-a symbol, <i>R/N</i> identifying the postion as normal/reverse and
+The first three fields, <i>2, R, 1</i>,
+include a numeric value for the switch machine,
+a symbol, <i>N/R</i> identifying the position as normal/reverse and
 the bit value, 0/1 for that position.
+The last three fields,
 <i>0, 1, "s02r"</i>, like the button entry
-identifies the chip, port bit and label.
+specify the chip, port bit and label.
 
 <blockquote><pre>
 // machine address and polarity
@@ -88,7 +125,7 @@ const PROGMEM SwMach_t s21r = { 21, R, 1, { 2, 4, "s21r" }};
 </blockquote></pre>
 
 Routes are described in the routes table, <i>routes []</i>.
-Each entry includes a pair a buttons that can be presses simultaneously and
+Each entry specifies a pair a buttons and
 one or more switch machine position references (i.e. pointers).
 
 <blockquote><pre>
@@ -108,12 +145,13 @@ a pair of buttons can select more than one route.
     { Ba4, Bc3, { &s20r, &s16n, &s17n, &s11n, &s12n, &s07n, &s02r, &s01r }},
 </blockquote>
 
-The code repeated monitors the button input ports.
-When it detects that two or more buttons have been pressed,
-it uses <i>butIos []</i> to match the chip and port bit to button symbols.
-It then searches the routes table for an entry with that pair of buttons.
-The code then sets the corresponding bit
-to position the switch for each switch machine in the route.
+The code repeatedly
+* monitors the button input ports
+* detects that two or more buttons have been pressed
+* uses <i>butIos []</i> to match the chip and port bit to button IDs
+* searches the routes table for an entry with that pair of buttons, and
+* sets the corresponding bits to position the switch
+for each machine in the route.
 
 <!-- -----------------------------------------------  ---------------------- -->
 <hr>
