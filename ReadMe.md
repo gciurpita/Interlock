@@ -2,13 +2,16 @@
 
 <img width=400 align=right src=https://i.imgur.com/Qs8UcEP.jpg>
 
-Arduino code to route (align turnouts) through interlock
-by pressing buttons on either end of route.
+Arduino interlock route controller,
+aligns multiple turnouts through interlock
+by pressing buttons at either end of route.
 
-Controller uses hardware shown at right
+Controller uses hardware shown at right.
+~12V input top left to ~6V down converter to Arduino UNO board bottom left.
+Three custom Tortoise Driver and I/O PCBs
 using MCP23017 I2C I/O expander
-to control up to 8 tortoise switch machines
-using LM324 op-amps and as 8 GPIOs.
+to control up to 8 tortoise switch machines using LM324 op-amps and
+eight GPIOs.
 
 <img width=100% src=westLupoli.png>
 
