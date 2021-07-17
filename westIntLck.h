@@ -17,9 +17,10 @@ typedef struct {
 // buttons
 typedef enum  {
     B_0 = 0,
-    Ba0 = 10, Ba1, Ba2, Ba3, Ba4, Ba5, Ba6,
-    Bc0 = 30, Bc1, Bc2, Bc3, Bc4, Bc5, Bc6, Bc7, Bc8, Bc9,
-    Bx0 = 90, Bx1, Bx2,
+    Ba0 = 10, Ba1, Ba2, Ba3, Ba4,
+    Bb0 = 10, Bb1, Bb2, Bb3, Bb4,
+    Bc0 = 30, Bc1, Bc2, Bc3, Bc4, Bc5, Bc6, Bc7, Bc8,
+    Bx0 = 90, Bx1, Bx2, Bx3,
 } But_t;
 
 typedef struct {
