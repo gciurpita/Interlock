@@ -31,27 +31,27 @@ const PROGMEM ButIo_t butIos [] = {
 };
 
 // machine address and polarity
-const PROGMEM SwMach_t x51n = {  1, N, 0, { 0, 0, "x51n" }};
-const PROGMEM SwMach_t x51r = {  1, R, 1, { 0, 0, "x51r" }};
-const PROGMEM SwMach_t s52n = {  2, N, 0, { 0, 1, "s52n" }};
-const PROGMEM SwMach_t s52r = {  2, R, 1, { 0, 1, "s52r" }};
-const PROGMEM SwMach_t x53n = {  3, N, 0, { 0, 2, "x53n" }};
-const PROGMEM SwMach_t x53r = {  3, R, 1, { 0, 2, "x53r" }};
-const PROGMEM SwMach_t x54n = {  4, N, 0, { 0, 3, "x54n" }};
-const PROGMEM SwMach_t x54r = {  4, R, 1, { 0, 3, "x54r" }};
+const PROGMEM SwMach_t x51n = { 51, N, 0, { 0, 0, "x51n" }};
+const PROGMEM SwMach_t x51r = { 51, R, 1, { 0, 0, "x51r" }};
+const PROGMEM SwMach_t s52n = { 52, N, 0, { 0, 1, "s52n" }};
+const PROGMEM SwMach_t s52r = { 52, R, 1, { 0, 1, "s52r" }};
+const PROGMEM SwMach_t x53n = { 53, N, 0, { 0, 2, "x53n" }};
+const PROGMEM SwMach_t x53r = { 53, R, 1, { 0, 2, "x53r" }};
+const PROGMEM SwMach_t x54n = { 54, N, 0, { 0, 3, "x54n" }};
+const PROGMEM SwMach_t x54r = { 54, R, 1, { 0, 3, "x54r" }};
 
-const PROGMEM SwMach_t x55n = {  5, N, 0, { 0, 4, "x55n" }};
-const PROGMEM SwMach_t x55r = {  5, R, 1, { 0, 4, "x55r" }};
-const PROGMEM SwMach_t x56n = {  6, N, 0, { 0, 5, "x56n" }};
-const PROGMEM SwMach_t x56r = {  6, R, 1, { 0, 5, "x56r" }};
-const PROGMEM SwMach_t x57n = {  7, N, 0, { 0, 6, "x57n" }};
-const PROGMEM SwMach_t x57r = {  7, R, 1, { 0, 6, "x57r" }};
-const PROGMEM SwMach_t x58n = {  8, N, 0, { 0, 7, "x58n" }};
-const PROGMEM SwMach_t x58r = {  8, R, 1, { 0, 7, "x58r" }};
+const PROGMEM SwMach_t x55n = { 55, N, 0, { 0, 4, "x55n" }};
+const PROGMEM SwMach_t x55r = { 55, R, 1, { 0, 4, "x55r" }};
+const PROGMEM SwMach_t x56n = { 56, N, 0, { 0, 5, "x56n" }};
+const PROGMEM SwMach_t x56r = { 56, R, 1, { 0, 5, "x56r" }};
+const PROGMEM SwMach_t x57n = { 57, N, 0, { 0, 6, "x57n" }};
+const PROGMEM SwMach_t x57r = { 57, R, 1, { 0, 6, "x57r" }};
+const PROGMEM SwMach_t x58n = { 58, N, 0, { 0, 7, "x58n" }};
+const PROGMEM SwMach_t x58r = { 58, R, 1, { 0, 7, "x58r" }};
 
 
-const PROGMEM SwMach_t x59n = {  8, N, 0, { 1, 0, "x59n" }};
-const PROGMEM SwMach_t x59r = {  8, R, 1, { 1, 0, "x59r" }};
+const PROGMEM SwMach_t x59n = { 59, N, 0, { 1, 0, "x59n" }};
+const PROGMEM SwMach_t x59r = { 59, R, 1, { 1, 0, "x59r" }};
 const PROGMEM SwMach_t x61n = { 61, N, 0, { 1, 1, "x61n" }};
 const PROGMEM SwMach_t x61r = { 61, R, 1, { 1, 1, "x61r" }};
 const PROGMEM SwMach_t s63n = { 63, N, 0, { 1, 2, "s63n" }};
