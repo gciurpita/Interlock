@@ -1,6 +1,6 @@
 // New Haven West const interlock
 
-const char version [] = "New Haven West 210810a";
+const char version [] = "New Haven West 210810c";
 
 #include <TimerOne.h>
 #include "Wire.h"  // I2R operations
@@ -69,7 +69,7 @@ void i2cWrite (
     chip += chip < Chip20 ? Chip20 : 0;
 
     if (2 < dbg)  {
-        Serial.print   ("  i2cWrite: chip ");
+        Serial.print   (F("  i2cWrite: chip "));
         Serial.print   (chip, HEX);
         Serial.print   (", port ");
         Serial.print   (port, HEX);
@@ -106,7 +106,7 @@ i2cRead (
     byte val =  Wire.read ();
 
     if (3 < dbg)  {
-        Serial.print   ("  i2cRead: chip ");
+        Serial.print   (F("  i2cRead: chip "));
         Serial.print   (chip, HEX);
         Serial.print   (", port ");
         Serial.print   (port, HEX);
@@ -123,7 +123,7 @@ int nChip   = 0;
 
 void i2cCfg (void)
 {
-    Serial.println ("i2cCfg:");
+    Serial.println (F("i2cCfg:"));
     for (nChip = 0; nChip < 8; nChip++)  {
         i2cWrite (nChip, IODIRA, IoOut);
         if (IoOut != i2cRead (nChip, IODIRA))
@@ -141,12 +141,29 @@ void i2cCfg (void)
 }
 
 // ---------------------------------------------------------
+void i2cList (void)
+{
+    byte val0;
+    byte val1;
+
+    Serial.println (F("i2cList:"));
+
+    for (int n = 0; n < nChip; n++)  {
+        val0 = i2cRead (n, IODIRA);
+        val1 = i2cRead (n, IODIRB);
+
+        sprintf (s, " %s: 0x%02x 0x%02x", __func__, val0, val1);
+        Serial.println (s);
+    }
+}
+
+// ---------------------------------------------------------
 // sequentially set each port bit
 void
 test (
     int     chip)
 {
-    Serial.print (" test: Gpio-A, chip 0x");
+    Serial.print (F(" test: Gpio-A, chip 0x"));
     Serial.println (chip, HEX);
 
     for (byte bit = 0; bit < 8; bit++)  {
@@ -154,7 +171,7 @@ test (
         delay (500);
     }
 
-    Serial.print (" test: Gpio-B, chip 0x");
+    Serial.print (F(" test: Gpio-B, chip 0x"));
     Serial.println (chip, HEX);
 
     for (byte bit = 0; bit < 8; bit++)  {
@@ -189,9 +206,9 @@ tglTest (void)
     for (int chip = 0; chip < nChip; chip++)
         i2cWrite (chip, GPIOA, tglTestState);
 
-    Serial.print ("tglTest: time ");
+    Serial.print (F("tglTest: time "));
     Serial.print (tglTestTime);
-    Serial.print (", cnt ");
+    Serial.print (F(", cnt "));
     Serial.println (++tglTestCnt);
 
     digitalWrite(TglTest, LOW);
@@ -259,7 +276,7 @@ int chkButtons (
         match += but2 == list [n] ? 1 << n : 0;
 
         if (1 < dbg)  {
-            Serial.print  ("   chkButtons: n ");
+            Serial.print  (F("   chkButtons: n "));
             Serial.print  (n);
             Serial.print  (" list ");
             Serial.print  (list [n]);
@@ -325,16 +342,16 @@ int chkRoutes (
             byte  _chip  = pgm_read_byte (& (sm->io.chip));
             byte  _bit   = pgm_read_byte (& (sm->io.bit));
 
-            Serial.print   (" route   _id ");
+            Serial.print   (F(" route   _id "));
             Serial.print   (_id);
-            Serial.print   (", _pos ");
+            Serial.print   (F(", _pos "));
             Serial.print   (_pos);
-            Serial.print   (", _bitVal ");
+            Serial.print   (F(", _bitVal "));
             Serial.print   (_bitVal);
 
-            Serial.print   (" _chip ");
+            Serial.print   (F(" _chip "));
             Serial.print   (_chip);
-            Serial.print   (", _bit ");
+            Serial.print   (F(", _bit "));
             Serial.println (_bit);
 
             bitUpdate (_chip, GPIOA, _bit, _bitVal);
@@ -359,9 +376,9 @@ butFind (
     digitalWrite(ButFind, HIGH);
 
     if (dbg)  {
-        Serial.print   ("  butFind: chip ");
+        Serial.print   (F("  butFind: chip "));
         Serial.print   (chip);
-        Serial.print   (", bit ");
+        Serial.print   (F(", bit "));
         Serial.println (bit);
     }
 
@@ -374,12 +391,12 @@ butFind (
             break;
 
         if (1 < dbg)  {
-            Serial.print   ("        ");
-            Serial.print   (", _chip ");
+            Serial.print   (F("        "));
+            Serial.print   (F(", _chip "));
             Serial.print   (_chip);
-            Serial.print   (", _bit ");
+            Serial.print   (F(", _bit "));
             Serial.print   (_bit);
-            Serial.print   (", _but ");
+            Serial.print   (F(", _but "));
             Serial.println (_but);
         }
 
@@ -412,8 +429,8 @@ mapButtons (
     digitalWrite(MapBut, HIGH);
 
     for (byte  i = 0; i < nState; i++)  {
-        if (dbg)  {
-            Serial.print  (" mapButtons: ");
+        if (1 < dbg)  {
+            Serial.print  (F(" mapButtons: "));
             Serial.print  (i);
             Serial.print  (" ");
             Serial.println (state [i], HEX);
@@ -434,7 +451,7 @@ mapButtons (
     // process button presses
 done:
     if (2 <= nButs)  {
-        Serial.print ("mapButtons:");
+        Serial.print (F("mapButtons:"));
         for (int j = 0; j < nButs; j++)  {
             Serial.print (" ");
             Serial.print (list [j]);
@@ -446,7 +463,7 @@ done:
 
         // check for test modes
         if (chkButtons (list, nButs, Ba1, Ba3, B_0))  {
-            Serial.println ("  test mode");
+            Serial.println (F("  test mode"));
             if (0 == tglTestEn)  {
                 tglTestEn = 1;
                 ledMode   = 1;
@@ -491,10 +508,10 @@ void butScan (void)
                 state [i] = val;
                 change++;
 
-                if (dbg)  {
-                    Serial.print   ("   chip ");
+                if (1 < dbg)  {
+                    Serial.print   (F(" butScan: chip "));
                     Serial.print   (chip, HEX);
-                    Serial.print   ("  ");
+                    Serial.print   (F("  "));
                     Serial.println (val, HEX);
                 }
             }
@@ -522,7 +539,7 @@ listMachs (void)
     for (const SwMach_t **p = smListRev; 0 != *p; p++)  {
         loadSwMach (&sm, *p);
 
-        sprintf (s, "%s: id %2d, pos %d, val %d, chip %d, bit %d",
+        sprintf (s, " %s: id %2d, pos %d, val %d, chip %d, bit %d",
             __func__, sm.id, sm.pos, sm.bitVal, sm.io.chip, sm.io.bit);
         Serial.println (s);
     }
@@ -662,23 +679,28 @@ pcRead (void)
             val  = 0;
             break;
 
-        case 'v':
+        case 'V':
             Serial.print ("\nversion: ");
             Serial.println (version);
            break;
 
+        case 'v':
+            i2cList ();
+            break;
+
         case '?':
-            Serial.print ("  # c  set chip 0-7 val\n");
-            Serial.print ("    l  list machines\n");
-            Serial.print ("  # p  set port (0-output/1-input) val\n");
-            Serial.print ("    R  reconfig chips\n");
-            Serial.print ("    r  read chip, port\n");
-            Serial.print ("    S  read all registers of chip\n");
-            Serial.print ("    s  switch turnout\n");
-            Serial.print ("    T  en/disable tglTest\n");
-            Serial.print ("    t  sequentially set each bit in GPIO-A/B\n");
-            Serial.print ("  # w  write 8-bit val to chip/port\n");
-            Serial.print ("    v  version\n");
+            Serial.print (F("  # c  set chip 0-7 val\n"));
+            Serial.print (F("    l  list machines\n"));
+            Serial.print (F("  # p  set port (0-output/1-input) val\n"));
+            Serial.print (F("    R  reconfig chips\n"));
+            Serial.print (F("    r  read chip, port\n"));
+            Serial.print (F("    S  read all registers of chip\n"));
+            Serial.print (F("    s  switch turnout\n"));
+            Serial.print (F("    T  en/disable tglTest\n"));
+            Serial.print (F("    t  sequentially set each bit in GPIO-A/B\n"));
+            Serial.print (F("  # w  write 8-bit val to chip/port\n"));
+            Serial.print (F("    V  version\n"));
+            Serial.print (F("    v  list chip registers\n"));
             break;
 
         case '\n':      // process simulated button input
