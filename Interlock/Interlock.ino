@@ -1,6 +1,6 @@
 // New Haven West const interlock
 
-const char version [] = "New Haven West 210724a";
+const char version [] = "New Haven West 210810a";
 
 #include <TimerOne.h>
 #include "Wire.h"  // I2R operations
@@ -198,6 +198,24 @@ tglTest (void)
 }
 
 // ---------------------------------------------------------
+void bitTgl (
+    byte     chip,
+    byte     reg,
+    byte     bit )
+{
+    byte    val0  = i2cRead (chip, reg);
+    byte    val1 = val0 ^ (1 << bit);
+
+    if (dbg) {
+        sprintf (s, " %s: chip %d, bit %d, val0 0x%02x, val1 0x%02x",
+            __func__, chip, bit, val0, val1);
+        Serial.println (s);
+    }
+
+    i2cWrite (chip, reg, val1);
+}
+
+// ---------------------------------------------------------
 void bitUpdate (
     byte     chip,
     byte     reg,
@@ -208,6 +226,12 @@ void bitUpdate (
     
     val  &= ~(1 << bit);
     val  |= bitVal << bit;
+
+    if (dbg) {
+        sprintf (s, " %s: chip %d, bit %d, bitVal %d, val 0x%02x",
+            __func__, chip, bit, bitVal, val );
+        Serial.println (s);
+    }
 
     i2cWrite (chip, reg, val);
 }
@@ -507,6 +531,32 @@ listMachs (void)
 // ---------------------------------------------------------
 // process commands from serial monitor
 void
+swTurnout (
+    int  id )
+{
+    SwMach_t    sm;
+
+    for (const SwMach_t **p = smListRev; 0 != *p; p++)  {
+        loadSwMach (&sm, *p);
+
+        if (sm.id == id)  {
+            sprintf (s, "%s: id %2d, pos %d, val %d, chip %d, bit %d",
+                __func__, sm.id, sm.pos, sm.bitVal, sm.io.chip, sm.io.bit);
+            Serial.println (s);
+
+
+            bitTgl (sm.io.chip, GPIOA, sm.io.bit);
+            return;
+        }
+    }
+
+    sprintf (s, "%s: id %2d, not found", __func__, id);
+    Serial.println (s);
+}
+
+// ---------------------------------------------------------
+// process commands from serial monitor
+void
 pcRead (void)
 {
     digitalWrite(PcRead, HIGH);
@@ -532,7 +582,8 @@ pcRead (void)
         case '8':
         case '9':
             val = c - '0' + (10 * val);
-            Serial.println (val);
+            if (1 < dbg)
+                Serial.println (val);
             break;
 
         case ' ':
@@ -581,7 +632,7 @@ pcRead (void)
             Serial.println (i2cRead (chip, port));
             break;
 
-        case 's':
+        case 'S':
             for (int port = 0; port <= 0x15; port++)  {
                 Serial.print   (" read: chip ");
                 Serial.print   (chip, HEX);
@@ -590,6 +641,11 @@ pcRead (void)
                 Serial.print   (",  ");
                 Serial.println (i2cRead (chip, port), HEX);
             }
+            break;
+
+        case 's':
+            swTurnout (val);
+            val = 0;
             break;
 
         case 'T':
@@ -617,7 +673,8 @@ pcRead (void)
             Serial.print ("  # p  set port (0-output/1-input) val\n");
             Serial.print ("    R  reconfig chips\n");
             Serial.print ("    r  read chip, port\n");
-            Serial.print ("    s  read all registers of chip\n");
+            Serial.print ("    S  read all registers of chip\n");
+            Serial.print ("    s  switch turnout\n");
             Serial.print ("    T  en/disable tglTest\n");
             Serial.print ("    t  sequentially set each bit in GPIO-A/B\n");
             Serial.print ("  # w  write 8-bit val to chip/port\n");
@@ -625,14 +682,16 @@ pcRead (void)
             break;
 
         case '\n':      // process simulated button input
-            sprintf (s, "%s: Ba %2d, Bb %2d", __func__, valA, valB);
-            Serial.println (s);
+            if (None != valA && None != valB)  {
+                sprintf (s, "%s: Ba %2d, Bb %2d", __func__, valA, valB);
+                Serial.println (s);
 
-            list [0] = (But_t) valA;
-            list [1] = (But_t) valB;
-            chkRoutes (list, 2);
+                list [0] = (But_t) valA;
+                list [1] = (But_t) valB;
+                chkRoutes (list, 2);
 
-            valA = valB = None;
+                valA = valB = None;
+            }
             break;
 
         default:
