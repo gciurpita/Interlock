@@ -1,6 +1,6 @@
 // New Haven West const interlock
 
-const char version [] = "New Haven West 210810c";
+const char version [] = "New Haven West 210811a";
 
 #include <TimerOne.h>
 #include "Wire.h"  // I2R operations
@@ -406,6 +406,7 @@ butFind (
                 Serial.println (_but);
             }
             val = (But_t) _but;
+            break;
         }
     }
 
