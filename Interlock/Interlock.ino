@@ -614,12 +614,12 @@ pcRead (void)
             break;
 
         case 'a':
-            valA = Ba0 + val;
+            valA = Ba1 + val;
             val  = 0;
             break;
 
         case 'b':
-            valB = Bb0 + val;
+            valB = Bb1 + val;
             val  = 0;
             break;
 
