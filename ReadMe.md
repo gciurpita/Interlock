@@ -22,7 +22,7 @@ eight GPIOs.
 
 <table border=1 cellspacing=0 align=right>
  <tr> <th colspan=2> PCB 3
- <tr> <th> Mach <th> Button
+ <tr> <th> Sw <th> But
  <tr> <td align=center>  69 <td align=center>  X1
  <tr> <td align=center>  70 <td align=center>  X2
  <tr> <td align=center>  71 <td align=center>  X3
@@ -35,7 +35,7 @@ eight GPIOs.
 
 <table border=1 cellspacing=0 align=right>
  <tr> <th colspan=2> PCB 2
- <tr> <th> Mach <th> Button
+ <tr> <th> Sw <th> But
  <tr> <td align=center>  59 <td align=center>  C1
  <tr> <td align=center>  61 <td align=center>  C2
  <tr> <td align=center>  63 <td align=center>  C3
@@ -48,7 +48,7 @@ eight GPIOs.
 
 <table border=1 cellspacing=0 align=right>
  <tr> <th colspan=2> PCB 1
- <tr> <th> Mach <th> Button
+ <tr> <th> Sw <th> But
  <tr> <td align=center>  51 <td align=center>  A1
  <tr> <td align=center>  52 <td align=center>  A2
  <tr> <td align=center>  53 <td align=center>  A3
