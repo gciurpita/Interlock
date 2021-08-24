@@ -40,12 +40,12 @@ const PROGMEM SwMach_t x53r = { 53, R, 1, { 0, 2, "x53r" }};
 const PROGMEM SwMach_t x54n = { 54, N, 0, { 0, 3, "x54n" }};
 const PROGMEM SwMach_t x54r = { 54, R, 1, { 0, 3, "x54r" }};
 
-const PROGMEM SwMach_t x55n = { 55, N, 0, { 0, 4, "x55n" }};
-const PROGMEM SwMach_t x55r = { 55, R, 1, { 0, 4, "x55r" }};
+const PROGMEM SwMach_t x55n = { 55, N, 1, { 0, 4, "x55n" }};
+const PROGMEM SwMach_t x55r = { 55, R, 0, { 0, 4, "x55r" }};
 const PROGMEM SwMach_t x56n = { 56, N, 0, { 0, 5, "x56n" }};
 const PROGMEM SwMach_t x56r = { 56, R, 1, { 0, 5, "x56r" }};
-const PROGMEM SwMach_t x57n = { 57, N, 0, { 0, 6, "x57n" }};
-const PROGMEM SwMach_t x57r = { 57, R, 1, { 0, 6, "x57r" }};
+const PROGMEM SwMach_t x57n = { 57, N, 1, { 0, 6, "x57n" }};
+const PROGMEM SwMach_t x57r = { 57, R, 0, { 0, 6, "x57r" }};
 const PROGMEM SwMach_t x58n = { 58, N, 1, { 0, 7, "x58n" }};
 const PROGMEM SwMach_t x58r = { 58, R, 0, { 0, 7, "x58r" }};
 
@@ -157,17 +157,17 @@ const PROGMEM Route_t routes [] = {
     { Ba2, Bc4, { &x70n, &x68r, &s69n, &x65n, &x59n, &x53n, &s52r }},
     { Ba2, Bc5, { &x70n, &x68r, &s69n, &x65n, &x59n, &x53n, &s52n }},
     { Ba2, Bc6, { &x70n, &x68r, &s69r, &x61n, &x59n, &x57n, &x54n }},
-    { Ba2, Bc7, { &x70n, &x68r, &s69r, &x61n, &x59n, &x57r, &x54n }},
+    { Ba2, Bc7, { &x70n, &x68r, &s69r, &x61n, &x59n, &x57r, &x55n, &x54n }},
     { Ba2, Bc8, { &x70n, &x68r, &s69r, &x61n, &x59n, &x57r, &x55r }},
 
 
 
     { Ba3, Bc2, { &x72n, &x68n, &s69n, &x65n, &x59n, &x53r, &x51r }},
-    { Ba3, Bc3, { &x72n, &x68n, &s69n, &x65n, &x59n, &x53r }},
+    { Ba3, Bc3, { &x72n, &x68n, &s69n, &x65n, &x59n, &x53r, &x51n }},
     { Ba3, Bc4, { &x72n, &x68n, &s69n, &x65n, &x59n, &x53n, &s52r }},
     { Ba3, Bc5, { &x72n, &x68n, &s69n, &x65n, &x59n, &x53n, &s52n }},
-    { Ba3, Bc6, { &x72n, &x68n, &s69r, &x61n, &x59n, &x57n, &x54n }},
-    { Ba3, Bc7, { &x72n, &x68n, &s69r, &x61n, &x59n, &x57r, &x55n, &x54n }},
+    { Ba3, Bc6, { &x72n, &x68n, &s69r, &x61n, &x57n, &x54n }},
+    { Ba3, Bc7, { &x72n, &x68n, &s69r, &x61n, &x57r, &x55n }},
     { Ba3, Bc8, { &x72n, &x68n, &s69r, &x61n, &x59n, &x57r, &x55r }},
 
 
@@ -176,9 +176,9 @@ const PROGMEM Route_t routes [] = {
     { Ba4, Bc3, { &x72r, &x68n, &s69n, &x65n, &x59n, &x53r, &x51n }},
     { Ba4, Bc4, { &x72r, &x68n, &s69n, &x65n, &x59n, &x53n, &s52r }},
     { Ba4, Bc5, { &x72r, &x68n, &s69n, &x65n, &x59n, &x53n, &s52n }},
-    { Ba4, Bc6, { &x72n, &s63n, &x61r, &x57n, &x54n }},
-    { Ba4, Bc7, { &x72r, &x68n, &s69r, &x61n, &x59n, &x57r, &x55n }},
-    { Ba4, Bc8, { &x72r, &x68n, &s69r, &x61n, &x59n, &x57r, &x55r }},
+    { Ba4, Bc6, { &x72r, &x68n, &s69r, &x61n, &x57n, &x54n }},
+    { Ba4, Bc7, { &x72n, &x68n, &s69r, &x61n, &x57r, &x55n }},
+    { Ba4, Bc8, { &x72n, &x68n, &s69r, &x61n, &x57r, &x55r }},
 
 
 
