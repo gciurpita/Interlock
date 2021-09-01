@@ -152,8 +152,8 @@ const PROGMEM Route_t routes [] = {
 
 
 
-    { Ba2, Bc2, { &x70n, &x64n, &x56r, &x51n }},
-    { Ba2, Bc3, { &x70n, &x68n, &x65n, &x64n, &x56n, &x51n }},
+    { Ba2, Bc2, { &x70n,               &x64n, &x56r, &x53n, &x51n }},
+    { Ba2, Bc3, { &x70n, &x68n, &x65n, &x64n, &x56n, &x53n, &x51n }},
     { Ba2, Bc4, { &x70n, &x68r, &s69n, &x65n, &x59n, &x53n, &s52r }},
     { Ba2, Bc5, { &x70n, &x68r, &s69n, &x65n, &x59n, &x53n, &s52n }},
     { Ba2, Bc6, { &x70n, &x68r, &s69r, &x61n, &x59n, &x57n, &x54n }},
@@ -177,8 +177,8 @@ const PROGMEM Route_t routes [] = {
     { Ba4, Bc4, { &x72r, &x68n, &s69n, &x65n, &x59n, &x53n, &s52r }},
     { Ba4, Bc5, { &x72r, &x68n, &s69n, &x65n, &x59n, &x53n, &s52n }},
     { Ba4, Bc6, { &x72r, &x68n, &s69r, &x61n, &x57n, &x54n }},
-    { Ba4, Bc7, { &x72n, &x68n, &s69r, &x61n, &x57r, &x55n }},
-    { Ba4, Bc8, { &x72n, &x68n, &s69r, &x61n, &x57r, &x55r }},
+    { Ba4, Bc7, { &x72n, &x68n, &s69r, &x61n, &x57n, &x55n }},
+    { Ba4, Bc8, { &x72n, &x68n, &s69r, &x61n, &x57n, &x55r }},
 
 
 
