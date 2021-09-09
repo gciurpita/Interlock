@@ -1,6 +1,6 @@
 // New Haven West const interlock
 
-const char version [] = "New Haven West 210831a";
+const char version [] = "New Haven West 210909a";
 
 #include <TimerOne.h>
 #include "Wire.h"  // I2R operations
@@ -34,6 +34,16 @@ char  s [100];
 
 #define MAX_BUTS    3
 But_t  list [MAX_BUTS];
+
+
+#define SIM
+#ifdef SIM
+byte pinXs   [] = { A1, A2, A3 };
+#define N_XS    sizeof(pinXs)
+
+byte  stateXs [N_XS];
+But_t butXs   [N_XS] = { Bx1, Bx2, Bx3 };
+#endif
 
 // -----------------------------------------------------------------------------
 //         Uno  Mega
@@ -287,7 +297,14 @@ int chkButtons (
 
     digitalWrite(ChkBut, LOW);
 
-    return nButs && (match == ((1 << nButs) -1));
+#if 0
+    char s [40];
+    sprintf (s, " %s: match %d, %d", __func__, match,
+            B_0 != but2 ? 3 : (B_0 != but1 ? 2 : 1) );
+    Serial.println (s);
+#endif
+
+    return (match == (B_0 != but2 ? 7 : (B_0 != but1 ? 3 : 1)));
 }
 
 // -----------------------------------------------------------------------------
@@ -330,8 +347,15 @@ int chkRoutes (
         if (B_0 == _but0)
             break;
 
-        if (! chkButtons (list, nButs, _but0, _but1, B_0))
+        if (! chkButtons (list, nButs, _but0, _but1, B_0))  {
+#if 0
+            char s [60];
+            sprintf (s, " %s: %3d %3d no-match %3d %3d",
+                __func__, list [0], list [1], _but0, _but1);
+            Serial.println (s);
+#endif
             continue;
+        }
 
         SwMach_t* sm;
         for (int i = 0; (sm = pgm_read_word (& (r->list [i]))); i++)  {
@@ -354,7 +378,10 @@ int chkRoutes (
             Serial.print   (F(", _bit "));
             Serial.println (_bit);
 
-            bitUpdate (_chip, GPIOA, _bit, _bitVal);
+            if (B_N == _but1)
+                bitTgl    (_chip, GPIOA, _bit);
+            else
+                bitUpdate (_chip, GPIOA, _bit, _bitVal);
         }
 
         res = 1;
@@ -524,6 +551,29 @@ void butScan (void)
     // no further processing is no button input
     if (change)
         mapButtons (state, sizeof(state));
+
+#ifdef SIM
+    for (unsigned n = 0; n < N_XS; n++)  {
+        byte but     = digitalRead (pinXs [n]);
+        if (stateXs [n] != but)  {
+            stateXs [n] = but;
+            delay (10);
+
+            if (LOW == but)  {
+                if (Bx2 == butXs [n])  {
+                    list [0] = Ba2;
+                    list [1] = Bb2;
+                }
+                else {
+                    list [0] = butXs [n];
+                    list [1] = B_N;
+                }
+
+                chkRoutes (list, 2);
+            }
+        }
+    }
+#endif
 
     digitalWrite(ButScan, LOW);
 }
@@ -783,10 +833,18 @@ void setup()
 
     for (int pin = 5; pin <= 13; pin++)  {
         pinMode(pin, OUTPUT);
-        digitalWrite(pin, LOW);
+        digitalWrite(pin, HIGH);
     }
 
     Wire.begin();    //start I2C bus
 
     i2cCfg ();
+
+#ifdef SIM
+    Serial.println (" --------- SIM ---------");
+    for (unsigned n = 0; n < N_XS; n++)  {
+        pinMode (pinXs [n], INPUT_PULLUP);
+        stateXs [n] = digitalRead (pinXs [n]);
+    }
+#endif
 }
