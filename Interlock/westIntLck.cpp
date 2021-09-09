@@ -129,6 +129,8 @@ const PROGMEM Route_t routes [] = {
 
 
 
+    { Bx1, B_N, { &x71r }},
+
     { Bx1, Bc1, { &x71r, &x70n, &s66r, &x67n, &x58n }},
     { Bx1, Bc2, { &x71r, &x70n, &s66n, &x64n, &x58n, &x56n, &x51n }},
     { Bx1, Bc3, { &x71r, &x70r, &x68n, &x65n, &x64n, &x56n, &x53n, &x51n }},
