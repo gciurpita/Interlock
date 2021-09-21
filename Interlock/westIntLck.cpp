@@ -102,7 +102,8 @@ const SwMach_t* smListRev [] = {
 
 // routes
 const PROGMEM Route_t routes [] = {
-    { Bx1, Bx2, { &x71r, &x70n, &s66r, &x67r }},
+    { Bx1, Bx2, { &x71n, &x67n }},
+
     { Bx1, Bb1, { &x71r, &x70n, &s66n }},
     { Bx1, Bb2, { &x71r, &x70r, &x68n }},
     { Bx1, Bb3, { &x71r, &x70r, &x68r, &s69n }},
