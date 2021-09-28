@@ -1,6 +1,6 @@
 // New Haven West const interlock
 
-const char version [] = "New Haven West 210914a";
+const char version [] = "New Haven West 210928a";
 
 #include <TimerOne.h>
 #include "Wire.h"  // I2R operations
@@ -36,7 +36,7 @@ char  s [100];
 But_t  list [MAX_BUTS];
 
 
-#define SIM
+#undef SIM
 #ifdef SIM
 byte pinXs   [] = { A1, A2, A3 };
 #define N_XS    sizeof(pinXs)
