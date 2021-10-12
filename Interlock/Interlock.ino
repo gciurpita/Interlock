@@ -1,6 +1,6 @@
 // New Haven West const interlock
 
-const char version [] = "New Haven West 210928a";
+const char version [] = "New Haven West 211012a";
 
 #include <TimerOne.h>
 #include "Wire.h"  // I2R operations
