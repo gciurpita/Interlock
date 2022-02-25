@@ -20,7 +20,8 @@ typedef enum  {
     Ba1 = 10, Ba2, Ba3, Ba4,
     Bb1 = 20, Bb2, Bb3, Bb4,
     Bc1 = 30, Bc2, Bc3, Bc4, Bc5, Bc6, Bc7, Bc8,
-    Bx1 = 90, Bx2, Bx3,
+    Bx1 = 40, Bx2, Bx3,
+    B_N = 100
 } But_t;
 
 typedef struct {

@@ -21,16 +21,30 @@ eight GPIOs.
 <h4> PCB Wire Connections </h4>
 
 <table border=1 cellspacing=0 align=right>
+ <tr> <th colspan=2> PCB 4
+ <tr> <th> Sw <th> But
+ <tr> <td align=center> &nbsp; <td align=center>  &nbsp;
+ <tr> <td align=center> &nbsp; <td align=center>  &nbsp;
+ <tr> <td align=center> &nbsp; <td align=center>  &nbsp;
+ <tr> <td align=center> &nbsp; <td align=center>  &nbsp;
+
+ <tr> <td align=center> &nbsp; <td align=center>  &nbsp;
+ <tr> <td align=center> &nbsp; <td align=center>  &nbsp;
+ <tr> <td align=center> &nbsp; <td align=center>  &nbsp;
+ <tr> <td align=center> &nbsp; <td align=center>  &nbsp;
+</table>
+
+<table border=1 cellspacing=0 align=right>
  <tr> <th colspan=2> PCB 3
  <tr> <th> Sw <th> But
- <tr> <td align=center>  69 <td align=center>  X1
- <tr> <td align=center>  70 <td align=center>  X2
- <tr> <td align=center>  71 <td align=center>  X3
- <tr> <td align=center>  72 <td align=center>
- <tr> <td align=center> &nbsp; <td align=center>
- <tr> <td align=center> &nbsp; <td align=center>
- <tr> <td align=center> &nbsp; <td align=center>
- <tr> <td align=center> &nbsp; <td align=center>
+ <tr> <td align=center>  69 <td align=center>  A1
+ <tr> <td align=center>  70 <td align=center>  A2
+ <tr> <td align=center>  71 <td align=center>  A3
+ <tr> <td align=center>  72 <td align=center>  A4
+ <tr> <td align=center> &nbsp; <td align=center> B1
+ <tr> <td align=center> &nbsp; <td align=center> B2
+ <tr> <td align=center> &nbsp; <td align=center> B3
+ <tr> <td align=center> &nbsp; <td align=center> B4
 </table>
 
 <table border=1 cellspacing=0 align=right>
@@ -49,16 +63,17 @@ eight GPIOs.
 <table border=1 cellspacing=0 align=right>
  <tr> <th colspan=2> PCB 1
  <tr> <th> Sw <th> But
- <tr> <td align=center>  51 <td align=center>  A1
- <tr> <td align=center>  52 <td align=center>  A2
- <tr> <td align=center>  53 <td align=center>  A3
- <tr> <td align=center>  54 <td align=center>  A4
+ <tr> <td align=center>  51 <td align=center>  X1
+ <tr> <td align=center>  52 <td align=center>  X2
+ <tr> <td align=center>  53 <td align=center>  X3
+ <tr> <td align=center>  54 <td align=center>  &nbsp;
 
- <tr> <td align=center>  55 <td align=center>  B1
- <tr> <td align=center>  56 <td align=center>  B2
- <tr> <td align=center>  57 <td align=center>  B3
- <tr> <td align=center>  58 <td align=center>  B4
+ <tr> <td align=center>  55 <td align=center>  &nbsp;
+ <tr> <td align=center>  56 <td align=center>  &nbsp;
+ <tr> <td align=center>  57 <td align=center>  &nbsp;
+ <tr> <td align=center>  58 <td align=center>  &nbsp;
 </table>
+
 
 <a href=https://i.imgur.com/RJTQaR7.jpg target="_blank">
 <img src=https://i.imgur.com/RJTQaR7.jpg height=380></a>
